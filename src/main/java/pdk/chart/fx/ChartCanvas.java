@@ -9,6 +9,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.text.FontSmoothingType;
+import javafx.util.Duration;
 import pdk.chart.Chart;
 import pdk.chart.ChartRenderingInfo;
 import pdk.chart.event.ChartChangeEvent;
@@ -525,6 +526,7 @@ public class ChartCanvas extends Canvas implements ChartChangeListener,
         if (text != null) {
             if (this.tooltip == null) {
                 this.tooltip = new Tooltip(text);
+                this.tooltip.setShowDelay(Duration.millis(200));
                 Tooltip.install(this, this.tooltip);
             } else {
                 this.tooltip.setText(text);
