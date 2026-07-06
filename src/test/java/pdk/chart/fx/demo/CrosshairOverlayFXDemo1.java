@@ -1,4 +1,4 @@
-package pdk.chart.fx;
+package pdk.chart.fx.demo;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -6,13 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
+import pdk.chart.fx.ChartViewer;
 import pdk.chart.fx.interaction.ChartMouseEventFX;
 import pdk.chart.fx.interaction.ChartMouseListenerFX;
 import pdk.chart.fx.overlay.CrosshairOverlayFX;
@@ -94,8 +95,7 @@ public class CrosshairOverlayFXDemo1 extends Application {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        return ChartFactory.createXYLineChart(
-                "CrosshairOverlayDemo1", "X", "Y", dataset);
+        return JChart.line(dataset, "X", "Y", "CrosshairOverlayDemo1");
     }
 
     /**
@@ -117,7 +117,7 @@ public class CrosshairOverlayFXDemo1 extends Application {
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    static void main(String[] args) {
         launch(args);
     }
 

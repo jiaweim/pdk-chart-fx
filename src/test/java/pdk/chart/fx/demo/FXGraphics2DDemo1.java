@@ -1,31 +1,73 @@
-package pdk.chart.fx;
+package pdk.chart.fx.demo;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.time.Month;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.fx.graphics.FXGraphics2D;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.title.TextTitle;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
- * A demo showing the display of JFreeChart within a JavaFX application.
+ * A demo showing the display of pdk-chart within a JavaFX application.
+ * Note that this demo is for illustration only...the pdk-chart distribution
+ * (from version 1.0.18 onwards) incorporates FXGraphics2D directly and
+ * provides a {@code ChartViewer} control that supports tooltips, panning,
+ * zooming, mouse events and a context menu.
  * <p>
  * The ChartCanvas code is based on:
  * http://dlemmermann.wordpress.com/2014/04/10/javafx-tip-1-resizable-canvas/
  *
  */
-public class TimeSeriesChartFXDemo1 extends Application {
+public class FXGraphics2DDemo1 extends Application {
+
+    static class ChartCanvas extends Canvas {
+
+        final Chart chart;
+
+        private final FXGraphics2D g2;
+
+        public ChartCanvas(Chart chart) {
+            this.chart = chart;
+            this.g2 = new FXGraphics2D(getGraphicsContext2D());
+            // Redraw canvas when size changes.
+            widthProperty().addListener(e -> draw());
+            heightProperty().addListener(e -> draw());
+        }
+
+        private void draw() {
+            double width = getWidth();
+            double height = getHeight();
+            getGraphicsContext2D().clearRect(0, 0, width, height);
+            this.chart.draw(this.g2, new Rectangle2D.Double(0, 0, width,
+                    height));
+        }
+
+        @Override
+        public boolean isResizable() {
+            return true;
+        }
+
+        @Override
+        public double prefWidth(double height) {return getWidth();}
+
+        @Override
+        public double prefHeight(double width) {return getHeight();}
+    }
 
     /**
      * Creates a chart.
@@ -35,20 +77,16 @@ public class TimeSeriesChartFXDemo1 extends Application {
      */
     private static Chart createChart(XYDataset dataset) {
 
-        Chart chart = ChartFactory.createTimeSeriesChart(
-                "International Coffee Organisation : Coffee Prices",    // title
-                null,             // x-axis label
-                "US cents/lb",      // y-axis label
-                dataset);
+        Chart chart = JChart.timeLine(dataset, null, "US cents/lb",
+                "International Coffee Organisation : Coffee Prices");
 
         String fontName = "Palatino";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));
-        chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf",
-                new Font(fontName, Font.PLAIN, 14)));
+        chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf", new Font(fontName, Font.PLAIN, 14)));
 
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
-        plot.setRangePannable(true);
+        plot.setRangePannable(false);
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
         plot.getDomainAxis().setLowerMargin(0.0);
@@ -66,7 +104,8 @@ public class TimeSeriesChartFXDemo1 extends Application {
             renderer.setDrawSeriesLineAsPath(true);
             // set the default stroke for all series
             renderer.setAutoPopulateSeriesStroke(false);
-            renderer.setDefaultStroke(new BasicStroke(3.0f));
+            renderer.setDefaultStroke(new BasicStroke(3.0f,
+                    BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL), false);
             renderer.setSeriesPaint(0, Color.RED);
             renderer.setSeriesPaint(1, new Color(24, 123, 58));
             renderer.setSeriesPaint(2, new Color(149, 201, 136));
@@ -74,6 +113,7 @@ public class TimeSeriesChartFXDemo1 extends Application {
             renderer.setSeriesPaint(4, new Color(81, 176, 86));
             renderer.setSeriesPaint(5, new Color(0, 55, 122));
             renderer.setSeriesPaint(6, new Color(0, 92, 165));
+            renderer.setDefaultLegendTextFont(new Font(fontName, Font.PLAIN, 14));
         }
 
         return chart;
@@ -389,9 +429,14 @@ public class TimeSeriesChartFXDemo1 extends Application {
     public void start(Stage stage) {
         XYDataset dataset = createDataset();
         Chart chart = createChart(dataset);
-        ChartViewer viewer = new ChartViewer(chart);
-        stage.setScene(new Scene(viewer));
-        stage.setTitle("JFreeChart: TimeSeriesFXDemo1.java");
+        ChartCanvas canvas = new ChartCanvas(chart);
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(canvas);
+        // Bind canvas size to stack pane size. 
+        canvas.widthProperty().bind(stackPane.widthProperty());
+        canvas.heightProperty().bind(stackPane.heightProperty());
+        stage.setScene(new Scene(stackPane));
+        stage.setTitle("FXGraphics2DDemo1.java");
         stage.setWidth(700);
         stage.setHeight(390);
         stage.show();

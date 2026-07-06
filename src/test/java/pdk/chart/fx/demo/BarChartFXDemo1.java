@@ -1,14 +1,15 @@
-package pdk.chart.fx;
+package pdk.chart.fx.demo;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.fx.ChartViewer;
 import pdk.chart.fx.interaction.ChartMouseEventFX;
 import pdk.chart.fx.interaction.ChartMouseListenerFX;
 import pdk.chart.plot.CategoryPlot;
@@ -43,9 +44,7 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
      * @return The chart.
      */
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart(
-                "Performance: JFreeSVG vs Batik", null /* x-axis label*/,
-                "Milliseconds" /* y-axis label */, dataset);
+        Chart chart = JChart.bar(dataset, null, "Milliseconds", "Performance: JFreeSVG vs Batik");
         chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
                 + "format (lower bars = better performance)"));
         chart.setBackgroundPaint(Color.white);
@@ -75,7 +74,7 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
         ChartViewer viewer = new ChartViewer(chart);
         viewer.addChartMouseListener(this);
         stage.setScene(new Scene(viewer));
-        stage.setTitle("JFreeChart: BarChartFXDemo1.java");
+        stage.setTitle("BarChartFXDemo1.java");
         stage.setWidth(700);
         stage.setHeight(390);
         stage.show();
@@ -86,7 +85,7 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
      *
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    static void main(String[] args) {
         launch(args);
     }
 

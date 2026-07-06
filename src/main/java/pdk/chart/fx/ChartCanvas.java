@@ -334,7 +334,7 @@ public class ChartCanvas extends Canvas implements ChartChangeListener,
     }
 
     /**
-     * Registers a listener to receive {@link ChartMouseEvent} notifications.
+     * Registers a listener to receive {@link pdk.chart.swing.ChartMouseEvent} notifications.
      *
      * @param listener the listener ({@code null} not permitted).
      */
