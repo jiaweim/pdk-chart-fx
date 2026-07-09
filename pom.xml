@@ -8,7 +8,7 @@
 
     <groupId>io.github.jiaweim</groupId>
     <artifactId>pdk-chart-fx</artifactId>
-    <version>1.2.0</version>
+    <version>2.35.0</version>
     <name>pdk-chart-fx</name>
     <url>https://github.com/jiaweim/pdk-chart-fx</url>
 
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>io.github.jiaweim</groupId>
             <artifactId>pdk-chart</artifactId>
-            <version>2.34.0</version>
+            <version>2.35.0</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -160,6 +160,19 @@
                         <id>attach-javadoc</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
