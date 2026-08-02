@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.PieChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.general.DefaultPieDataset;
@@ -45,7 +45,7 @@ public class PieChartFXDemo1 extends Application {
      */
     private static Chart createChart(PieDataset<String> dataset) {
 
-        Chart chart = JChart.pie(dataset, "Smart Phones Manufactured / Q3 2011");
+        Chart chart = new PieChart(dataset, "Smart Phones Manufactured / Q3 2011");
 
         // set a custom background for the chart
         chart.setBackgroundPaint(new GradientPaint(new Point(0, 0),

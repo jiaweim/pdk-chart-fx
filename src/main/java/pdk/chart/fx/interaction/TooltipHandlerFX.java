@@ -1,10 +1,10 @@
 package pdk.chart.fx.interaction;
 
 import javafx.scene.input.MouseEvent;
-import pdk.chart.ChartRenderingInfo;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.fx.ChartCanvas;
+import pdk.chart.model.ChartRenderingInfo;
 
 /**
  * Handles the updating of tooltips on a {@link ChartCanvas}.

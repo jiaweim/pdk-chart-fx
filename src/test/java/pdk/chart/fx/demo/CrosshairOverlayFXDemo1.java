@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.general.DatasetUtils;
@@ -95,7 +95,7 @@ public class CrosshairOverlayFXDemo1 extends Application {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        return JChart.line(dataset, "X", "Y", "CrosshairOverlayDemo1");
+        return new LineChart(dataset, "X", "Y", "CrosshairOverlayDemo1");
     }
 
     /**

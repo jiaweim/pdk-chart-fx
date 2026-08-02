@@ -5,8 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.time.Month;
@@ -77,7 +78,7 @@ public class FXGraphics2DDemo1 extends Application {
      */
     private static Chart createChart(XYDataset dataset) {
 
-        Chart chart = JChart.timeLine(dataset, null, "US cents/lb",
+        Chart chart = new LineChart(dataset, null, AxisType.DATE, "US cents/lb",
                 "International Coffee Organisation : Coffee Prices");
 
         String fontName = "Palatino";

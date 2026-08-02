@@ -3,8 +3,8 @@ package pdk.chart.fx.demo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.category.CategoryDataset;
@@ -44,7 +44,7 @@ public class BarChartFXDemo1 extends Application implements ChartMouseListenerFX
      * @return The chart.
      */
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, null, "Milliseconds", "Performance: JFreeSVG vs Batik");
+        CategoryBarChart chart = new CategoryBarChart(dataset, null, "Milliseconds", "Performance: JFreeSVG vs Batik");
         chart.addSubtitle(new TextTitle("Time to generate 1000 charts in SVG "
                 + "format (lower bars = better performance)"));
         chart.setBackgroundPaint(Color.white);

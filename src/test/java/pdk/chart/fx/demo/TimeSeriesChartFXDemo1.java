@@ -3,8 +3,9 @@ package pdk.chart.fx.demo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.time.Month;
@@ -36,8 +37,8 @@ public class TimeSeriesChartFXDemo1 extends Application {
      */
     private static Chart createChart(XYDataset dataset) {
 
-        Chart chart = JChart.timeLine(dataset, null, "US cents/lb",
-                "International Coffee Organisation : Coffee Prices");
+        Chart chart = new LineChart(dataset, null, AxisType.DATE,
+                "US cents/lb", "International Coffee Organisation : Coffee Prices");
 
         String fontName = "Palatino";
         chart.getTitle().setFont(new Font(fontName, Font.BOLD, 18));

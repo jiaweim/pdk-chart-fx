@@ -2,8 +2,8 @@ package pdk.chart.fx.interaction;
 
 import javafx.scene.input.ScrollEvent;
 import pdk.chart.Chart;
-import pdk.chart.ChartRenderingInfo;
 import pdk.chart.fx.ChartCanvas;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.Zoomable;
@@ -75,7 +75,7 @@ public class ScrollHandlerFX extends AbstractMouseHandlerFX
      * @param e        the mouse wheel event.
      */
     private void handleZoomable(ChartCanvas canvas, Zoomable zoomable,
-                                ScrollEvent e) {
+            ScrollEvent e) {
         if (canvas.getChart() == null) {
             return;
         }
